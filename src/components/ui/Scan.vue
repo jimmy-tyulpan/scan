@@ -7,7 +7,7 @@
                 <span><a :href="content">{{content}}</a></span>
             </div>
             <div id="reset-button">
-                <button v-on:click="changeMode">Reset</button>
+                <button @click="changeMode();startCamera()">Reset</button>
             </div>
         </div>
     </div>
@@ -23,18 +23,25 @@
         data(){
             return {
                 mode: true,
-                content: ''
+                content: '',
+                scanner: null
             }
         },
         methods: {
-            setContent(content){
-                if (content) {
+            setContent(scan){
+                if (scan) {
                     this.changeMode();
-                    this.content = content;
+                    this.content = scan.content;
+                    this.scanner = scan.scanner;
+                    this.camera = scan.camera;
+                    this.scanner.stop();
                 }
             },
             changeMode(){
                 this.mode = !this.mode;
+            },
+            startCamera(){
+                this.scanner.start(this.scanner.camera);
             }
         }
     }

@@ -22,7 +22,8 @@
             return {
                 scanProperty: {
                     instanceScan: require('instascan'),
-                    scanner: null
+                    scanner: null,
+                    camera: null
                 }
             }
         },
@@ -33,12 +34,17 @@
                     video: document.getElementById(ctx.videoId)
                 });
             }
-            ctx.scanProperty.scanner.addListener('scan', function (content) {
-                ctx.$emit('qrScaned', content);
-            });
             ctx.scanProperty.instanceScan.Camera.getCameras().then(function (cameras) {
                 if (cameras.length > 0) {
                     ctx.scanProperty.scanner.start(cameras[0]);
+                    ctx.scanProperty.camera = cameras[0];
+                    ctx.scanProperty.scanner.addListener('scan', function (content) {
+                        ctx.$emit('qrScaned', {
+                            content: content,
+                            scanner: ctx.scanProperty.scanner,
+                            camera: ctx.scanProperty.camera
+                        });
+                    });
                 } else {
                     console.log(errorMessage)
                 }
