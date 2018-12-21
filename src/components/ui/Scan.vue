@@ -4,7 +4,7 @@
         <div id="scan-result" v-show="!mode">
             <h2>Result</h2>
             <div>
-                <span><a :href="content">{{content}}</a></span>
+                <span>{{content}}</span>
             </div>
             <div id="reset-button">
                 <button @click="changeMode();startCamera()">Reset</button>
