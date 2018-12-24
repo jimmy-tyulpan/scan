@@ -1,0 +1,45 @@
+<template>
+    <div id="scan-result">
+        <h2>Result</h2>
+        <div>
+            <span>{{$route.query.data}}</span>
+        </div>
+        <div id="reset-button">
+            <button @click="backToScan">Reset</button>
+        </div>
+    </div>
+</template>
+
+<script>
+  export default {
+    methods: {
+      backToScan() {
+        this.$router.back();
+      },
+    },
+    beforeMount() {
+      if (!this.$route.query.data) {
+        this.$router.push('/scan');
+      }
+    },
+  };
+</script>
+
+<style scoped>
+    #scan-result {
+        margin: 100px auto;
+        width: 500px;
+        text-align: center;
+        font-weight: 200;
+    }
+
+    #reset-button button {
+        margin-top: 20px;
+        padding: 10px;
+        border: none;
+        color: #ffffff;
+        border-radius: 3px;
+        background-color: #228B22;
+        cursor: pointer;
+    }
+</style>

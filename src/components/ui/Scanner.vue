@@ -3,54 +3,49 @@
         <div id="scanner">
             <h2>Scan your code</h2>
             <div class="video-wrapper">
-                <video :id="videoId"></video>
+                <video data-id="preview"></video>
             </div>
         </div>
     </div>
 </template>
 
 <script>
+  import instascan from 'instascan';
 
-    export default {
-        props: {
-          videoId: {
-              type: String,
-              required: true
-          }
-        },
-        data() {
-            return {
-                scanProperty: {
-                    instanceScan: require('instascan'),
-                    scanner: null,
-                    camera: null
-                }
-            }
-        },
-        mounted(){
-            let ctx = this;
-            if (!ctx.scanProperty.scanner) {
-                ctx.scanProperty.scanner = new ctx.scanProperty.instanceScan.Scanner({
-                    video: document.getElementById(ctx.videoId)
-                });
-            }
-            ctx.scanProperty.instanceScan.Camera.getCameras().then(function (cameras) {
-                if (cameras.length > 0) {
-                    ctx.scanProperty.scanner.start(cameras[0]);
-                    ctx.scanProperty.camera = cameras[0];
-                    ctx.scanProperty.scanner.addListener('scan', function (content) {
-                        ctx.$emit('qrScaned', {
-                            content: content,
-                            scanner: ctx.scanProperty.scanner,
-                            camera: ctx.scanProperty.camera
-                        });
-                    });
-                } else {
-                    console.log(errorMessage)
-                }
+  export default {
+    methods: {
+      initScanner(){
+        this.scanner = new instascan.Scanner({
+          video: this.$el.querySelector('[data-id]'),
+        });
+      }
+    },
+    mounted() {
+      this.initScanner();
+      instascan.Camera.getCameras().then((cameras) => {
+        const isCameraAvailable = cameras.length > 0;
+
+        if (isCameraAvailable) {
+          let camera = cameras[0];
+
+          this.scanner.start(camera);
+
+          this.scanner.addListener('scan', (content) => {
+            this.$emit('scan', {
+              content: content,
             });
-        },
-    };
+          });
+        } else {
+          throw new Error('No cameras found');
+        }
+      });
+    },
+    beforeDestroy() {
+      if (this.scanner) {
+        this.scanner.stop();
+      }
+    },
+  };
 
 </script>
 
@@ -61,10 +56,12 @@
         text-align: center;
         font-weight: 200;
     }
+
     .video-wrapper {
         border-radius: 5px;
         position: relative;
     }
+
     .video-wrapper video {
         display: block;
         width: 100%;
