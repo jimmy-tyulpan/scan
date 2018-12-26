@@ -3,6 +3,7 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
+import store from './store/modules/qr.js'
 
 Vue.config.productionTip = false
 
@@ -10,5 +11,6 @@ Vue.config.productionTip = false
 new Vue({
   el: '#app',
   router,
+  store,
   render: (h) => h(App)
 })

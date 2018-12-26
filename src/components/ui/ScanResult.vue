@@ -2,7 +2,7 @@
     <div id="scan-result">
         <h2>Result</h2>
         <div>
-            <span>{{$route.query.data}}</span>
+            <span>{{$store.getters.getCode}}</span>
         </div>
         <div id="reset-button">
             <button @click="backToScan">Reset</button>
@@ -14,15 +14,11 @@
   export default {
     methods: {
       backToScan() {
-        this.$router.back();
+        this.$store.dispatch('resetCode', null)
+        this.$router.back()
       },
     },
-    beforeMount() {
-      if (!this.$route.query.data) {
-        this.$router.push('/scan');
-      }
-    },
-  };
+  }
 </script>
 
 <style scoped>

@@ -16,7 +16,8 @@
     methods: {
       setRedirect(scan) {
         if (scan) {
-          this.$router.push({path: 'result', query: {data: scan.content}});
+          this.$store.dispatch('setCode', scan.content)
+          this.$router.push('result')
         }
       },
       showError(error) {
