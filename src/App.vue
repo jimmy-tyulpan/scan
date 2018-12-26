@@ -1,5 +1,6 @@
 <template>
     <div>
+        <button v-if="$store.getters.isLoggedIn" @click="$store.commit('unLogin')">Log Out</button>
         <router-view></router-view>
     </div>
 </template>
@@ -8,6 +9,9 @@
   export default {};
 </script>
 
-<style>
-
+<style scoped>
+    button {
+        position: absolute;
+        right: 10%;
+    }
 </style>

@@ -7,5 +7,9 @@ export default {
     button: {
       reset: 'Reset'
     }
+  },
+  notify: {
+    empty: 'Enter data!',
+    invalid: 'Invalid credentials!'
   }
 }

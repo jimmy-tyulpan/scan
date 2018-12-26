@@ -1,9 +1,8 @@
 <template>
-    <div>
-        <div id="app">
-            <Scanner @scan="setRedirect" @error="showError" />
-        </div>
+    <div id="app">
+        <Scanner @scan="setRedirect" @error="showError" />
     </div>
+
 </template>
 
 <script>

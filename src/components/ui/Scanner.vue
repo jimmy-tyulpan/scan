@@ -1,10 +1,8 @@
 <template>
-    <div>
-        <div id="scanner">
-            <h2>{{$t('scan.header')}}</h2>
-            <div class="video-wrapper">
-                <video data-id="preview"></video>
-            </div>
+    <div id="scanner">
+        <h2>{{$t('scan.header')}}</h2>
+        <div class="video-wrapper">
+            <video data-id="preview"></video>
         </div>
     </div>
 </template>

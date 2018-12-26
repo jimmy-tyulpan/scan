@@ -1,9 +1,4 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
-
-Vue.use(Vuex)
-
-export default new Vuex.Store({
+export default {
   state: {
     code: null
   },
@@ -23,4 +18,4 @@ export default new Vuex.Store({
   getters: {
     getCode: state => state.code
   }
-})
+}
