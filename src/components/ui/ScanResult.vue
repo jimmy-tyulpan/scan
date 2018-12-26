@@ -1,11 +1,11 @@
 <template>
     <div id="scan-result">
-        <h2>Result</h2>
+        <h2>{{$t('result.header')}}</h2>
         <div>
             <span>{{$store.getters.getCode}}</span>
         </div>
         <div id="reset-button">
-            <button @click="backToScan">Reset</button>
+            <button @click="backToScan">{{$t('scan.button.reset')}}</button>
         </div>
     </div>
 </template>
@@ -17,7 +17,7 @@
         this.$store.dispatch('resetCode', null)
         this.$router.back()
       },
-    },
+    }
   }
 </script>
 
